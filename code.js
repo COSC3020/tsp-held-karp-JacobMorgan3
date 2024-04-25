@@ -11,12 +11,11 @@ class tsp{
      }
      
     tsp_hk() {
+         if (this.matrix.length <= 1) return 0;
         return this.helper(this.cities, this.start);
     }
  
     helper(cities, start) {
-        console.log(cities, start);
-        
         // calculating subindex, unique to cities
         let subIndex = 0;
         for (let i = 0; i < cities.length; ++i)
