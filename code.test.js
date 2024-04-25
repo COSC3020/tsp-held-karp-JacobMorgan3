@@ -2,6 +2,7 @@ const fs = require('fs');
 const assert = require('assert');
 
 eval(fs.readFileSync('code.js')+'');
+import tsp from './code.js'
 
 let dm = [[]];
 let map = new tsp(dm, 0);
