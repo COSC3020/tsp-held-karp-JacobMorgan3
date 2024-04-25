@@ -1,4 +1,4 @@
-class tsp{
+export class tsp{
      constructor(distance_matrix, start) { //constructor
         this.matrix = distance_matrix;
         this.start = start;
