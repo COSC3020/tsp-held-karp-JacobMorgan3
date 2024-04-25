@@ -53,4 +53,4 @@ class tsp{
     }
 }
 
-module.exports.class = tsp;
+module.exports.tsp = tsp;
