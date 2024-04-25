@@ -49,6 +49,6 @@ for (let i = 0; i < n; ++i) {
     matrix.push(row);
 }
  
-let map = new tsp(matrix, 0);
+map = new tsp(matrix, 0);
 let dist = map.tsp_hk();
 assert(dist > max);
