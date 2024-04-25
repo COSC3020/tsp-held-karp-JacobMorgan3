@@ -1,37 +1,54 @@
-function tsp_hk(cities, start, distance_matrix,) {
-    if (cities.length == 2) {
-        return distance_matrix[start][!start];
+class tsp{
+     constructor(distance_matrix, start) { //constructor
+        this.matrix = distance_matrix;
+        this.start = start;
+        this.storage = [];
+        
+        this.cities = [];
+        for (let i = 0; i < this.matrix.length; ++i)
+            this.cities.push(i);
+            this.storage.push([]);
+     }
+     
+    tsp_hk() {
+        return this.helper(this.cities, this.start);
     }
-    let min = Infinity;
-    for (let i = 0; i < cities.length; i++) {
-        if (cities[i] == start) 
-            continue;
-        let tmp = tsp_hk(cities.splice(cities.indexOf(start),1), cities[i]) + distance_matrix[start][cities[i]];
-        if (tmp < min) 
-            min = tmp; 
+ 
+    helper(cities, start) {
+        console.log(cities, start);
+        
+        // calculating subindex, unique to cities
+        let subIndex = 0;
+        for (let i = 0; i < cities.length; ++i)
+            subIndex |= 1 << cities[i];
+    
+        // check if we have memorized the value for cities, start
+        if (this.storage[subIndex] != undefined) {
+            if (this.storage[subIndex][start] != undefined) 
+                return this.storage[subIndex][start];
+        }
+    
+        // base case, we are only looking at two cities
+        if (cities.length == 2) {
+            if (cities[0] == start)
+                return this.matrix[start][cities[1]]; 
+            else
+                return this.matrix[start][cities[0]]; 
+        }
+    
+        // find the min path through cities
+        let min = Infinity;
+        for (let i = 0; i < cities.length; i++) {
+            if (cities[i] == start) continue;
+            let tmpArr = cities.slice();
+            let tmp = this.helper(tmpArr.splice(cities.indexOf(start) +1), cities[i]) + this.matrix[start][cities[i]];
+            if (tmp < min) 
+                min = tmp; 
+        }
+    
+        //update memorization and return
+        this.storage[subIndex] = [];
+        this.storage[subIndex][start] = min;
+        return min;
     }
-    return min;
 }
-
-// Converts a subset of our cities into an index that can be used for memorization
-//      Returns an index (unique to the subset) between 0 and 2^{arr.length}
-function subIndex(arr) {
-    let n = 0;
-    for (let i = 0; i < arr.length; ++i)
-        n |= 1 << arr[i];
-    return n;
-}
-
-
-let start = 0;
-
-let cities = [0,1,2,3,4];
-
-let distance_matrix = [  [0,9,0,18,6],
-                         [9,0,6,0,5],
-                         [0,6,0,0,7],
-                         [18,0,0,0,15],
-                         [6,5,7,15,0]  ];
-                         
-// console.log(tsp_hk(cities, start, distance_matrix));
-console.log(subIndex([0,1, 4]));
