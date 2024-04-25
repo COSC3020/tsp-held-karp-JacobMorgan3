@@ -15,7 +15,7 @@ dm = [[0,0,0],
       [0,0,0],
       [0,0,0]];
 map = new tsp(dm, 0);
-assert(map.tsp_hk()) == 0);
+assert(map.tsp_hk() == 0);
 
 dm = [[0,1,2],
       [1,0,2],
