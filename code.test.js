@@ -31,7 +31,7 @@ dm = [[0,3,4,2,7],
       [2,6,5,0,6],
       [7,3,8,6,0]];
 map = new tspClass.tsp(dm, 0);
-assert(map.tsp_hk() == 13);
+assert(map.tsp_hk() == 13, "dm: " + dm + ", tsp_hk: " + map.tsp_hk() + ", correct: 13");
 
 // Little theory: max(weights) < tsp distance
 const n = 4;
