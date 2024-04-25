@@ -1,4 +1,4 @@
-export class tsp{
+class tsp{
      constructor(distance_matrix, start) { //constructor
         this.matrix = distance_matrix;
         this.start = start;
@@ -52,3 +52,5 @@ export class tsp{
         return min;
     }
 }
+
+module.exports.class = tsp;
