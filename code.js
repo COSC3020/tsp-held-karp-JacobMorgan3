@@ -12,7 +12,12 @@ class tsp{
      
     tsp_hk() {
          if (this.matrix.length <= 1) return 0;
-        return this.helper(this.cities, this.start);
+         let min = Infinity;
+         for (let i = 0; i < this.matrix.length; ++i) {
+              let tmp = this.helper(this.cities, i);
+              if (tmp < min) min = tmp;
+         }
+         return min;
     }
  
     helper(cities, start) {
@@ -40,7 +45,7 @@ class tsp{
         for (let i = 0; i < cities.length; i++) {
             if (cities[i] == start) continue;
             let tmpArr = cities.slice();
-            let tmp = this.helper(tmpArr.splice(cities.indexOf(start) +1), cities[i]) + this.matrix[start][cities[i]];
+            let tmp = this.helper((tmpArr.slice(0, cities.indexOf(start))).concat(tmpArr.splice(cities.indexOf(start) +1)), cities[i]) + this.matrix[start][cities[i]];
             if (tmp < min) 
                 min = tmp; 
         }
