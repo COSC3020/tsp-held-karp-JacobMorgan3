@@ -50,3 +50,9 @@ reasoning, to this markdown file.
 
 
 ## Noah Mulvaney and I are working together on this exercise.
+
+### Worse Case Time Complexity
+Based on the theoretical analysis of tsp held karp we are looking at every possible permutation of the cities for the possible starts. For a given start we are finding the minimum of the possible $(|V|-1)!$ permutations of the $|V|-1$ other cities. There are $|V|!$ permutations of the cities for all starts. Our implementation has a time complexity of $\Theta(|V|!)$.
+
+### Worse Case Memory Complexity
+From our implementation with memorization we are storing possible lengths for each possible subset of all the cities and there are $2^{|V|}$ possible subsets. We are using a polynomial amount of memory to store the subsets for our recursive calls. So our asymptotic memory complexity is $\Theta(2^{|V|})$.
