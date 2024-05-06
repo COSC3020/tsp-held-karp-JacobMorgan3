@@ -1,3 +1,4 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/KdVea3AG)
 # Traveling Salesperson Problem -- Held-Karp Algorithm
 
 This exercise is about the Traveling Salesperson Problem I mentioned in the
@@ -46,3 +47,12 @@ Test your new function; I've provided some basic testing code in `code.test.js`.
 What is the worst-case asymptotic time complexity of your implementation? What
 is the worst-case asymptotic memory complexity? Add your answer, including your
 reasoning, to this markdown file.
+
+
+## Noah Mulvaney and I are working together on this exercise.
+
+### Worse Case Time Complexity
+Based on the theoretical analysis of tsp held karp we are looking at every possible permutation of the cities for the possible starts. For a given start we are finding the minimum of the possible $(|V|-1)!$ permutations of the $|V|-1$ other cities. There are $|V|!$ permutations of the cities for all starts. Our implementation has a time complexity of $\Theta(|V|!)$, and as the number of cities increases our memoization is more effective and reduces our time complexity by approximately $2^n$. 
+
+### Worse Case Memory Complexity
+From our implementation with memorization we are storing possible lengths for each possible subset of all the cities and there are $2^{|V|}$ possible subsets. We are using a polynomial amount of memory to store the subsets for our recursive calls. So our asymptotic memory complexity is $\Theta(2^{|V|})$.
