@@ -2,27 +2,27 @@ const fs = require('fs');
 const assert = require('assert');
 
 eval(fs.readFileSync('code.js')+'');
-const tspClass = require ("./code.js");
+
 
 let dm = [[]];
-let map = new tspClass.tsp(dm);
-assert(map.tsp_hk() == 0);
+
+assert(tsp_hk(dm) == 0);
 
 dm = [[0]];
-map = new tspClass.tsp(dm);
-assert(map.tsp_hk() == 0);
+
+assert(tsp_hk(dm) == 0);
 
 dm = [[0,0,0],
       [0,0,0],
       [0,0,0]];
-map = new tspClass.tsp(dm);
-assert(map.tsp_hk() == 0);
+
+assert(tsp_hk(dm) == 0);
 
 dm = [[0,1,2],
       [1,0,2],
       [2,2,0]];
-map = new tspClass.tsp(dm);
-assert(map.tsp_hk() == 3);
+
+assert(tsp_hk(dm) == 3);
 
 // https://people.sc.fsu.edu/~jburkardt/datasets/tsp/tsp.html
 dm = [[0,3,4,2,7],
@@ -30,8 +30,8 @@ dm = [[0,3,4,2,7],
       [4,4,0,5,8],
       [2,6,5,0,6],
       [7,3,8,6,0]];
-map = new tspClass.tsp(dm);
-assert(map.tsp_hk() == 13, "dm: " + dm + ", tsp_hk: " + map.tsp_hk() + ", correct: 13");
+
+assert(tsp_hk(dm) == 13);
 
 // Little theory: max(weights) < tsp distance
 const n = 4;
@@ -50,6 +50,6 @@ for (let i = 0; i < n; ++i) {
     matrix.push(row);
 }
  
-map = new tspClass.tsp(matrix);
-let dist = map.tsp_hk();
+
+let dist = tsp_hk(matrix);
 assert(dist > max);
