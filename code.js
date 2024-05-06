@@ -1,43 +1,51 @@
-class tsp{
-     constructor(distance_matrix, start) { //constructor
-        this.matrix = distance_matrix;
-        this.start = start;
-        this.storage = [];
+
+    function tsp_hk(matrix) {
+        let cities = [];
+        let storage = [];
+        for (let i = 0; i < matrix.length; i++) 
+            cities[i] = i;
+            
+        for (let i = 0; i < (matrix.length + 1) ** 2; ++i) {
+            let row = [];
+            for (let j = 0; j < matrix.length; ++j)
+                row.push(-1);
+            storage.push(row);
+        }
         
-        this.cities = [];
-        for (let i = 0; i < this.matrix.length; ++i)
-            this.cities.push(i);
-            this.storage.push([]);
-     }
-     
-    tsp_hk() {
-         if (this.matrix.length <= 1) return 0;
+         if (matrix.length <= 1) return 0;
          let min = Infinity;
-         for (let i = 0; i < this.matrix.length; ++i) {
-              let tmp = this.helper(this.cities, i);
+         for (let i = 0; i < matrix.length; ++i) {
+              let tmp = helper(cities, i, matrix, storage);
               if (tmp < min) min = tmp;
          }
          return min;
     }
  
-    helper(cities, start) {
+    function helper(cities, start, matrix, storage) {
         // calculating subindex, unique to cities
         let subIndex = 0;
         for (let i = 0; i < cities.length; ++i)
             subIndex |= 1 << cities[i];
     
         // check if we have memorized the value for cities, start
-        if (this.storage[subIndex] != undefined) {
-            if (this.storage[subIndex][start] != undefined) 
-                return this.storage[subIndex][start];
+        if (storage[subIndex] != -1) {
+            if (storage[subIndex][start] != -1) {
+                // console.log("Using Memory");
+                return storage[subIndex][start];
+            }
         }
+        
+        // console.log("Cities: " + cities + " Start: " + start);
     
         // base case, we are only looking at two cities
         if (cities.length == 2) {
-            if (cities[0] == start)
-                return this.matrix[start][cities[1]]; 
-            else
-                return this.matrix[start][cities[0]]; 
+            let tmp;
+            
+            if (cities[0] == start) tmp = matrix[start][cities[1]];
+            else tmp = matrix[start][cities[0]]
+            
+            storage[subIndex][start] = tmp;
+            return tmp;
         }
     
         // find the min path through cities
@@ -45,16 +53,14 @@ class tsp{
         for (let i = 0; i < cities.length; i++) {
             if (cities[i] == start) continue;
             let tmpArr = cities.slice();
-            let tmp = this.helper((tmpArr.slice(0, cities.indexOf(start))).concat(tmpArr.splice(cities.indexOf(start) +1)), cities[i]) + this.matrix[start][cities[i]];
+            let tmp = helper((tmpArr.slice(0, cities.indexOf(start))).concat(tmpArr.splice(cities.indexOf(start) +1)), cities[i], matrix, storage) + matrix[start][cities[i]];
             if (tmp < min) 
                 min = tmp; 
         }
     
         //update memorization and return
-        this.storage[subIndex] = [];
-        this.storage[subIndex][start] = min;
+        storage[subIndex][start] = min;
         return min;
     }
-}
 
-module.exports.tsp = tsp;
+module.exports = [tsp_hk, helper];
